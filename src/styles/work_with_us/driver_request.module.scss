@@ -1,0 +1,38 @@
+.section {
+  padding-top: 88px;
+  padding-bottom: 165px;
+}
+.sectionTitle {
+  @apply w-8/12 m-auto;
+
+  h2 {
+    @apply font-sans;
+    color: var(--Main-2, #0a0b0c);
+    text-align: center;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 131%; /* 52.4px */
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  h3 {
+    @apply font-inter;
+    color: var(--bw-black, #0a0b0c);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 36px */
+    text-align: center;
+  }
+}
+.formWraper {
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 16px;
+  background: white;
+  padding-top: 32px;
+  padding-left: 18%;
+  padding-right: 18%;
+  margin-top: 48px;
+}
