@@ -1,3 +1,4 @@
+@import "../mixin";
 .section {
   padding-top: 88px;
   padding-bottom: 88px;
@@ -47,5 +48,51 @@
   margin-bottom: 24px;
   img {
     border-radius: 14px;
+  }
+}
+@include md {
+  .section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+}
+@include sm {
+  .section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    h2 {
+      @apply font-sans;
+      font-size: 32px;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  }
+  .itemWrpaer {
+    padding-left: 10%;
+    padding-right: 10%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 80px;
+  }
+}
+@include xs {
+  .section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    h2 {
+      @apply font-sans;
+      font-size: 28px;
+      padding-left: 0%;
+      padding-right: 0%;
+      margin-bottom: 30px;
+    }
+  }
+  .itemWrpaer {
+    padding-left: 0%;
+    padding-right: 0%;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 50px;
   }
 }

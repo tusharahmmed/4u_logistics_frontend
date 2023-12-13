@@ -26,7 +26,7 @@
     margin-bottom: 24px;
   }
   p {
-    @apply w-10/12;
+    @apply w-full;
     color: #0a0b0c;
     font-size: 18px;
     font-style: normal;
@@ -63,7 +63,7 @@
   }
 }
 .imageWraper {
-  @apply w-6/12;
+  @apply w-5/12;
 
   display: flex;
   flex-direction: column;
@@ -81,50 +81,45 @@
   grid-template-columns: 1.5fr 1fr;
   gap: 22px;
 }
-// @include md {
-//   .section {
-//     flex-direction: column;
-//     padding-top: 44px;
-//   }
-//   .content {
-//     @apply w-full;
-//     order: 2;
+@include md {
+  .section {
+    flex-direction: column;
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .content {
+    @apply w-full;
+    order: 2;
 
-//     h1 {
-//       font-size: 42px;
-//     }
-//     p {
-//       @apply w-10/12;
-//     }
-//   }
-//   .imageWraper {
-//     @apply w-full;
-//     margin-bottom: 40px;
+    h1 {
+      font-size: 42px;
+    }
+    p {
+      @apply w-10/12;
+    }
+  }
+  .imageWraper {
+    @apply w-full;
+    margin-bottom: 40px;
 
-//     img {
-//       border-radius: 8px;
-//     }
-//   }
-// }
+    img {
+      border-radius: 8px;
+    }
+  }
+}
 
-// @include sm {
-//   .content {
-//     h1 {
-//       font-size: 32px;
-//       margin-bottom: 18px;
-//     }
-//     h3 {
-//       margin-bottom: 18px;
-//     }
-//     p {
-//       margin-bottom: 18px;
-//       @apply w-full;
-//     }
-//     button {
-//       width: 120px;
-//       padding: 6px 12px;
-//       font-size: 18px;
-//       border-radius: 12px;
-//     }
-//   }
-// }
+@include sm {
+  .content {
+    h1 {
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+    h3 {
+      margin-bottom: 18px;
+    }
+    p {
+      margin-bottom: 18px;
+      @apply w-full;
+    }
+  }
+}
