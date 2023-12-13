@@ -1,6 +1,5 @@
 import styles from "@/styles/work_with_us/logistics.module.scss";
 import Image from "next/image";
-import truck from "@/assets/images/home/truck.png";
 
 import union from "@/assets/icons/union.svg";
 import logistics1 from "@/assets/images/work/logistics1.png";

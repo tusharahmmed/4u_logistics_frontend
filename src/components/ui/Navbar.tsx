@@ -24,11 +24,11 @@ const Navbar = () => {
           <li>
             <Link href="work-with-us">About us</Link>
           </li>
-          <li>
+          {/* <li>
             <a href="">Services</a>
-          </li>
+          </li> */}
           <li>
-            <a href="">For drivers</a>
+            <Link href="for-drivers">For drivers</Link>
           </li>
           <li>
             <a href="">Fleet</a>

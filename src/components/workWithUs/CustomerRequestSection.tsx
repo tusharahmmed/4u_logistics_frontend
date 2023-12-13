@@ -1,7 +1,7 @@
-import styles from "@/styles/work_with_us/driver_request.module.scss";
-import DriverRequest from "../ui/DriverRequest";
+import styles from "@/styles/work_with_us/customer_request_section.module.scss";
+import CustomerRequest from "../ui/CustomerRequest";
 
-const DriverRequestSection = () => {
+const CustomerRequestSection = () => {
   return (
     <section className={`${styles.section} section_padding`}>
       <div className={styles.sectionTitle}>
@@ -9,10 +9,10 @@ const DriverRequestSection = () => {
         <h3>HR Department: 754-778-7877</h3>
       </div>
       <div className={styles.formWraper}>
-        <DriverRequest />
+        <CustomerRequest />
       </div>
     </section>
   );
 };
 
-export default DriverRequestSection;
+export default CustomerRequestSection;

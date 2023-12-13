@@ -1,10 +1,10 @@
 import * as yup from "yup";
 
-export const driverRequestSchema = yup.object().shape({
+export const customerRequestSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   surname: yup.string().required("Surname is required"),
   phone: yup.string().required("Phone is required"),
   email: yup.string().email().required("Email is required"),
-  truckType: yup.string().required("Truck type is required"),
-  truckDescription: yup.string().required("Truck Description is required"),
+  mcNumber: yup.string().required("MC/FF Number is required"),
+  loadDescription: yup.string().required("Load Description is required"),
 });

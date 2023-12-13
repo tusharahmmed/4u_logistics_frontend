@@ -1,5 +1,5 @@
 import Logistics from "./Logistics";
 import Corporate from "./Corporate";
-import DriverRequestSection from "./DriverRequestSection";
+import CustomerRequestSection from "./CustomerRequestSection";
 
-export {Logistics, Corporate, DriverRequestSection};
+export {Logistics, Corporate, CustomerRequestSection};

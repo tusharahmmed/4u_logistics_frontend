@@ -1,6 +1,6 @@
 import {
   Corporate,
-  DriverRequestSection,
+  CustomerRequestSection,
   Logistics,
 } from "@/components/workWithUs";
 import RootLayout from "@/layouts/RootLayout";
@@ -10,7 +10,7 @@ const WorkWithUs = () => {
     <>
       <Logistics />
       <Corporate />
-      <DriverRequestSection />
+      <CustomerRequestSection />
     </>
   );
 };

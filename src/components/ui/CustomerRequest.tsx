@@ -1,12 +1,12 @@
 import React from "react";
 import Form from "../form/Form";
 import FormInput from "../form/FormInput";
-import styles from "@/styles/ui/driver_request.module.scss";
+import styles from "@/styles/ui/customer_request.module.scss";
 import FormTextArea from "../form/FormTextArea";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {driverRequestSchema} from "@/schemas/driver_request";
+import {customerRequestSchema} from "@/schemas/customer_request";
 
-const DriverRequest = () => {
+const CustomerRequest = () => {
   const onSubmit = async (data: any) => {
     console.log(data);
 
@@ -26,7 +26,7 @@ const DriverRequest = () => {
     <>
       <Form
         submitHandler={onSubmit}
-        resolver={yupResolver(driverRequestSchema)}>
+        resolver={yupResolver(customerRequestSchema)}>
         <h3 className={styles.formTitle}>Or submit your resume today!</h3>
         <div className={styles.inputWraper}>
           <FormInput name="name" label="Name" placeholder="Ruslana Polonska" />
@@ -41,12 +41,12 @@ const DriverRequest = () => {
           <FormInput type="email" name="email" label="Email" />
         </div>
         <div className={styles.inputWraper}>
-          <FormInput name="truckType" label="Truck type" />
+          <FormInput name="mcNumber" label="MC/FF Number" />
         </div>
         <div className={styles.inputWraper}>
           <FormTextArea
-            name="truckDescription"
-            label="Instead of questions - Truck Description"
+            name="loadDescription"
+            label="Load Description"
             placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque integer nunc in adipiscing. Blandit nibh leo mattis fermentum, vitae cursus est. Tincidunt nibh vitae ut odio consequat."
             rows={4}
           />
@@ -59,4 +59,4 @@ const DriverRequest = () => {
   );
 };
 
-export default DriverRequest;
+export default CustomerRequest;
