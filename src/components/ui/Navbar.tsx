@@ -34,7 +34,7 @@ const Navbar = () => {
             <a href="">Fleet</a>
           </li>
           <li>
-            <a href="">Request a quote</a>
+            <a href="request-a-quote">Request a quote</a>
           </li>
           <li>
             <a href="">News</a>
