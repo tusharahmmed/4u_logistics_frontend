@@ -1,3 +1,4 @@
+@import "../mixin";
 .section {
   padding-top: 88px;
   padding-bottom: 88px;
@@ -49,5 +50,51 @@
   margin-bottom: 8px;
   img {
     margin: auto;
+  }
+}
+
+@include lg {
+  .benefits {
+    gap: 38px;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+@include md {
+  .section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .benefits {
+    gap: 48px;
+    margin-left: 12%;
+    margin-right: 12%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@include sm {
+  .section {
+    h2 {
+      font-size: 32px;
+    }
+  }
+  .benefits {
+    gap: 48px;
+    margin-left: 12%;
+    margin-right: 12%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@include xs {
+  .section {
+    h2 {
+      font-size: 28px;
+    }
+  }
+  .benefits {
+    gap: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
