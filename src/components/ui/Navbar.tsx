@@ -34,14 +34,16 @@ const Navbar = () => {
             <a href="">Fleet</a>
           </li>
           <li>
-            <a href="request-a-quote">Request a quote</a>
+            <Link href="request-a-quote">Request a quote</Link>
           </li>
           <li>
             <a href="">News</a>
           </li>
         </ul>
         <div className={styles.action}>
-          <button>Contact Us</button>
+          <Link href="contact-us">
+            <button>Contact Us</button>
+          </Link>
         </div>
       </div>
     </header>

@@ -1,0 +1,72 @@
+@import "../mixin";
+.section {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+.formWraper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 150px;
+}
+.wraper {
+  h2 {
+    @apply font-sans;
+    color: var(--bw-black, #0a0b0c);
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; /* 52px */
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  p {
+    @apply font-inter;
+    color: var(--bw-black, #0a0b0c);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 30px */
+    margin-bottom: 16px;
+  }
+}
+.form {
+  background-color: white;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+@include md {
+  .section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .formWraper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 100px;
+    padding: 0% 5%;
+  }
+}
+@include sm {
+  .wraper {
+    h2 {
+      font-size: 32px;
+    }
+    p {
+      font-size: 18px;
+    }
+  }
+}
+@include xs {
+  .formWraper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 100px;
+    padding: 0% 0%;
+  }
+  .wraper {
+    h2 {
+      font-size: 28px;
+    }
+  }
+}
