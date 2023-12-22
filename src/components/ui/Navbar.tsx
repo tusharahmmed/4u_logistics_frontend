@@ -36,9 +36,9 @@ const Navbar = () => {
           <li>
             <Link href="request-a-quote">Request a quote</Link>
           </li>
-          <li>
+          {/* <li>
             <a href="">News</a>
-          </li>
+          </li> */}
         </ul>
         <div className={styles.action}>
           <Link href="contact-us">

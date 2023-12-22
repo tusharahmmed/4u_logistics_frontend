@@ -7,9 +7,11 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "styles")],
   },
   transpilePackages: [
+    "react",
     "antd",
     "rc-util",
-    "@babel/runtime",
+    // "@babel/runtime",
+    "@ant-design/icons",
     "@ant-design/icons",
     "@ant-design/icons-svg",
     "rc-pagination",
