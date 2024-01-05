@@ -1,4 +1,4 @@
-import type {MenuProps} from "antd";
+import {Badge, type MenuProps} from "antd";
 import {
   ProfileOutlined,
   TableOutlined,
@@ -30,98 +30,7 @@ export const sidebarItems = (role: string) => {
     },
   ];
 
-  const adminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
-    {
-      label: "Manage academic",
-      key: "manage-academic",
-      icon: <TableOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/academic/faculty`}>Faculties</Link>,
-          key: `/${role}/academic/faculty`,
-        },
-        {
-          label: <Link href={`/${role}/academic/department`}>Departments</Link>,
-          key: `/${role}/academic/department`,
-        },
-        {
-          label: <Link href={`/${role}/academic/semester`}>Semesters</Link>,
-          key: `/${role}/academic/semester`,
-        },
-      ],
-    },
-    {
-      label: "Management",
-      key: "management",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/department`}>Department</Link>,
-          key: `/${role}/department`,
-        },
-        {
-          label: <Link href={`/${role}/building`}>Building</Link>,
-          key: `/${role}/building`,
-        },
-        {
-          label: <Link href={`/${role}/room`}>Rooms</Link>,
-          key: `/${role}/room`,
-        },
-        {
-          label: <Link href={`/${role}/course`}>Course</Link>,
-          key: `/${role}/course`,
-        },
-        {
-          label: (
-            <Link href={`/${role}/semester-registration`}>
-              Semester registration
-            </Link>
-          ),
-          key: `/${role}/semester-registration`,
-        },
-        {
-          label: <Link href={`/${role}/offered-course`}>Offered courses</Link>,
-          key: `/${role}/offered-course`,
-        },
-        {
-          label: (
-            <Link href={`/${role}/offered-course-section`}>
-              Course sections
-            </Link>
-          ),
-          key: `/${role}/offered-course-section`,
-        },
-      ],
-    },
-  ];
-
-  const superAdminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
-    {
-      label: <Link href={`/${role}/admin`}>Manage Admin</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/admin`,
-    },
-    {
-      label: <Link href={`/${role}/user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/user`,
-    },
-    {
-      label: "Management",
-      key: "management",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/department`}>Department</Link>,
-          key: `/${role}/department`,
-        },
-      ],
-    },
-  ];
-
-  const facultySidebarItems: MenuProps["items"] = [
+  const hrSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
       label: <Link href={`/${role}/courses`}>Courses</Link>,
@@ -130,9 +39,84 @@ export const sidebarItems = (role: string) => {
     },
   ];
 
+  const adminSidebarItems: MenuProps["items"] = [
+    ...defaultSidebarItems,
+    {
+      label: "Manage Quatation",
+      key: "manage-quatation",
+      icon: <TableOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/${role}/quote/pending`}>
+              Pending <Badge count={1}></Badge>
+            </Link>
+          ),
+          key: `/${role}/quote/pending`,
+        },
+        {
+          label: <Link href={`/${role}/quote/completed`}>Completed</Link>,
+          key: `/${role}/quote/completed`,
+        },
+        {
+          label: <Link href={`/${role}/quote/cancled`}>Cancled</Link>,
+          key: `/${role}/quote/cancled`,
+        },
+      ],
+    },
+  ];
+
+  const superAdminSidebarItems: MenuProps["items"] = [
+    ...defaultSidebarItems,
+    {
+      label: "Manage Quatation",
+      key: "manage-quatation",
+      icon: <TableOutlined />,
+      children: [
+        {
+          label: (
+            <Link href={`/${role}/quote/pending`}>
+              Pending <Badge count={1}></Badge>
+            </Link>
+          ),
+          key: `/${role}/quote/pending`,
+        },
+        {
+          label: <Link href={`/${role}/quote/completed`}>Completed</Link>,
+          key: `/${role}/quote/completed`,
+        },
+        {
+          label: <Link href={`/${role}/quote/cancled`}>Cancled</Link>,
+          key: `/${role}/quote/cancled`,
+        },
+      ],
+    },
+    // {
+    //   label: <Link href={`/${role}/admin`}>Manage Admin</Link>,
+    //   icon: <TableOutlined />,
+    //   key: `/${role}/admin`,
+    // },
+    // {
+    //   label: <Link href={`/${role}/user`}>Manage User</Link>,
+    //   icon: <TableOutlined />,
+    //   key: `/${role}/user`,
+    // },
+    // {
+    //   label: "Management",
+    //   key: "management",
+    //   icon: <AppstoreOutlined />,
+    //   children: [
+    //     {
+    //       label: <Link href={`/${role}/department`}>Department</Link>,
+    //       key: `/${role}/department`,
+    //     },
+    //   ],
+    // },
+  ];
+
   if (role === USER_ROLE.SUPER_ADMIN) return superAdminSidebarItems;
   else if (role === USER_ROLE.ADMIN) return adminSidebarItems;
-  else if (role === USER_ROLE.HR) return facultySidebarItems;
+  else if (role === USER_ROLE.HR) return hrSidebarItems;
   else {
     return defaultSidebarItems;
   }

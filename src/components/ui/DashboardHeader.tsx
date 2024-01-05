@@ -1,17 +1,17 @@
 import {Avatar, Button, Dropdown, Layout, MenuProps, Row, Space} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {USER_ROLE} from "@/constants/role";
-// import { getUserInfo, removeUserInfo } from "@/services/auth.service";
-// import { authKey } from "@/constants/storageKey";
-// import {useRouter} from "next/navigation";
+import {getUserInfo, removeUserInfo} from "@/services/auth.service";
+import {authKey} from "@/constants/storageKey";
+import {useRouter} from "next/navigation";
 const {Header: AntHeader} = Layout;
 
 const DashboardHeader = () => {
-  // const router = useRouter();
+  const router = useRouter();
 
   const logOut = () => {
-    // removeUserInfo(authKey);
-    // router.push("/login");
+    removeUserInfo(authKey);
+    router.push("/login");
   };
 
   const items: MenuProps["items"] = [
@@ -24,8 +24,8 @@ const DashboardHeader = () => {
       ),
     },
   ];
-  //   const { role } = getUserInfo() as any;
-  const role = USER_ROLE.SUPER_ADMIN;
+  const {role} = getUserInfo() as any;
+  // const role = USER_ROLE.SUPER_ADMIN;
   return (
     <AntHeader
       style={{
