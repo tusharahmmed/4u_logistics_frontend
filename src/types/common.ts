@@ -1,3 +1,5 @@
+import {USER_ROLE} from "@/constants/role";
+
 export interface IMeta {
   limit: number;
   page: number;
@@ -23,8 +25,11 @@ export type IGenericErrorMessage = {
 export interface IUser {
   id: string;
   name: string;
+  serName: string;
+  phone: string;
   email: string;
-  contactNo: string;
+  profileImage?: string;
+  role: USER_ROLE;
   permissions: USER_PERMISSION[];
   address: string;
   createdAt: string;

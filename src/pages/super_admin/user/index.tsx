@@ -16,13 +16,16 @@ import {useDebounced} from "@/rtk/hooks";
 import FModal from "@/components/ui/FModal";
 import dayjs from "dayjs";
 import {
-  useDeleteQuoteMutation,
-  useGetQuotesQuery,
-} from "@/rtk/features/api/quoteApi";
+  useDeleteUserMutation,
+  useGetAllUserQuery,
+} from "@/rtk/features/api/userApi";
+import Image from "next/image";
+import {IUser} from "@/types";
+import {USER_ROLE} from "@/constants/role";
 
-const PendingQuotePage = () => {
+const UserListPage = () => {
   const query: Record<string, any> = {};
-  const [deleteQuote] = useDeleteQuoteMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
@@ -30,13 +33,12 @@ const PendingQuotePage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [adminId, setAdminId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  query["status"] = "pending";
 
   const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
@@ -46,22 +48,22 @@ const PendingQuotePage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const {data, isLoading} = useGetQuotesQuery({...query});
-  // console.log(data);
-  const quotes = data?.quotes;
+  const {data, isLoading} = useGetAllUserQuery({...query});
+
+  const users = data?.users;
   const meta = data?.meta;
 
   const columns = [
     // {
-    //   title: "Id",
-    //   dataIndex: "id",
-    //   sorter: true,
-    //   key: "id",
+    //   title: "Image",
+    //   dataIndex: "profileImage",
+    //   key: "image",
+    //   render: function (data: string) {
+    //     return <Image src={data} alt="profile" height={60} width={60} />;
+    //   },
     // },
     {
       title: "Name",
-      // dataIndex: "name",
-
       render: function (data: Record<string, string>) {
         const fullName = `${data?.name} ${data?.serName} `;
         return <>{fullName}</>;
@@ -76,35 +78,8 @@ const PendingQuotePage = () => {
       dataIndex: "phone",
     },
     {
-      title: "PickupZip",
-      dataIndex: "pickupZip",
-    },
-    {
-      title: "DeliveryZip",
-      dataIndex: "deliveryZip",
-    },
-    {
-      title: "Pices",
-      dataIndex: "totalPices",
-    },
-    {
-      title: "Weight",
-      dataIndex: "totalWeight",
-      render: function (data: number) {
-        return `${data} lb`;
-      },
-    },
-    {
-      title: "Created at",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
+      title: "Role",
+      dataIndex: "role",
       render: (data: string) => {
         return (
           <div
@@ -116,18 +91,50 @@ const PendingQuotePage = () => {
       },
     },
     {
+      title: "Permissions",
+      // dataIndex: "permissions",
+      render: (record: IUser) => {
+        if (record.role === USER_ROLE.SUPER_ADMIN) {
+          return <span className="font-medium uppercase">ALL</span>;
+        }
+        return record.permissions?.map((item, i) => (
+          <span key={i} className="font-medium uppercase">
+            {item}
+          </span>
+        ));
+      },
+    },
+    {
+      title: "Created at",
+      dataIndex: "createdAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+    {
+      title: "Updated at",
+      dataIndex: "updatedAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+
+    {
       title: "Action",
       dataIndex: "id",
       render: function (data: any) {
         // console.log(data);
+
         return (
           <>
-            {/* <Link href={`/super_admin/admin/details/${data}`}>
+            <Link href={`/super_admin/user/details/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
-            </Link> */}
-            <Link href={`/super_admin/quote/edit/${data}`}>
+            </Link>
+            <Link href={`/super_admin/user/edit/${data}`}>
               <Button
                 style={{
                   margin: "5px 5px",
@@ -141,7 +148,7 @@ const PendingQuotePage = () => {
               type="primary"
               onClick={() => {
                 setOpen(true);
-                setAdminId(data);
+                setUserId(data);
               }}
               danger
               style={{marginLeft: "3px"}}>
@@ -170,18 +177,17 @@ const PendingQuotePage = () => {
     setSearchTerm("");
   };
 
-  const deleteAdminHandler = async (id: string) => {
-    // console.log(id);
+  const deleteUserHandler = async (id: string) => {
     try {
-      const res = await deleteQuote(id).unwrap();
+      const res = await deleteUser(id).unwrap();
       if (res) {
-        message.success("Quote Successfully Deleted!");
+        message.success("User Successfully Deleted!");
         setOpen(false);
       }
-    } catch (err: any) {
+    } catch (error: any) {
       setOpen(false);
-      console.log(err);
-      message.error(err.message);
+      // console.log(error);
+      message.error(error.message);
     }
   };
 
@@ -191,11 +197,11 @@ const PendingQuotePage = () => {
         items={[
           {
             label: "super_admin",
-            link: "/super_admin",
+            link: "/profile",
           },
         ]}
       />
-      <ActionBar title="Pending Quote List">
+      <ActionBar title="User List">
         <Input
           size="large"
           placeholder="Search"
@@ -203,11 +209,12 @@ const PendingQuotePage = () => {
           style={{
             width: "20%",
           }}
+          value={searchTerm}
         />
         <div>
-          {/* <Link href="/super_admin/admin/create">
-            <Button type="primary">Create Admin</Button>
-          </Link> */}
+          <Link href="/super_admin/user/create">
+            <Button type="primary">Create User</Button>
+          </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               style={{margin: "0px 5px"}}
@@ -222,7 +229,7 @@ const PendingQuotePage = () => {
       <FTable
         loading={isLoading}
         columns={columns}
-        dataSource={quotes}
+        dataSource={users}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -230,27 +237,21 @@ const PendingQuotePage = () => {
         onTableChange={onTableChange}
         showPagination={true}
         rowKey="id"
-        expandable={{
-          expandedRowRender: (record: any) => (
-            <p style={{margin: 0}}>{record.question}</p>
-          ),
-          rowExpandable: (record: any) => record.question !== "Not Expandable",
-        }}
       />
 
       <FModal
         title="Remove quote"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteAdminHandler(adminId)}>
+        handleOk={() => deleteUserHandler(userId)}>
         <p className="my-5">Do you want to remove this quote?</p>
       </FModal>
     </div>
   );
 };
 
-export default PendingQuotePage;
+export default UserListPage;
 
-PendingQuotePage.getLayout = function getLayout(page: React.ReactElement) {
+UserListPage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
