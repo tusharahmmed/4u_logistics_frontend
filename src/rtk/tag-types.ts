@@ -1,6 +1,6 @@
 export enum tagTypes {
   auth = "auth",
-
+  quote = "quote",
   // pre
   // user = "user",
   // profile = "profile",
@@ -13,7 +13,7 @@ export enum tagTypes {
 
 export const tagTypesList = [
   tagTypes.auth,
-
+  tagTypes.quote,
   //pre
 
   // tagTypes.user,

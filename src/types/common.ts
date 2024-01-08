@@ -37,3 +37,23 @@ export enum USER_PERMISSION {
   portfolio = "portfolio",
   order = "order",
 }
+enum STATUS {
+  pending = "pending",
+  canceled = "cancled",
+  completed = "completed",
+}
+export type IQuote = {
+  id: string;
+  name: string;
+  serName: string;
+  phone: string;
+  email: string;
+  pickupZip: string;
+  deliveryZip: string;
+  totalPices: number;
+  totalWeight: number;
+  question: string;
+  status: STATUS;
+  createdAt: string;
+  updatedAt: string;
+};

@@ -10,8 +10,15 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import {USER_ROLE} from "./role";
+import {useGetQuotesQuery} from "@/rtk/features/api/quoteApi";
 
 export const sidebarItems = (role: string) => {
+  const query: Record<string, any> = {};
+  query["status"] = "pending";
+
+  const {data, isLoading} = useGetQuotesQuery({...query});
+  const totalPending = data?.meta?.total;
+
   const defaultSidebarItems: MenuProps["items"] = [
     {
       label: "Profile",
@@ -76,7 +83,7 @@ export const sidebarItems = (role: string) => {
         {
           label: (
             <Link href={`/${role}/quote/pending`}>
-              Pending <Badge count={1}></Badge>
+              Pending <Badge count={totalPending}></Badge>
             </Link>
           ),
           key: `/${role}/quote/pending`,

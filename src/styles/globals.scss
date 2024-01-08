@@ -3,6 +3,21 @@
 @tailwind utilities;
 @import "./mixin";
 
+@layer base {
+  // button,
+  // [type="button"],
+  // [type="reset"],
+  // [type="submit"],
+  // .ant-btn-primary {
+  //   background-color: #1677ff !important;
+  // }
+}
+.ant-btn-primary {
+  background-color: #1677ff !important;
+}
+.ant-btn-dangerous {
+  background-color: #ff4d4f !important;
+}
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +26,7 @@ body {
   scroll-behavior: smooth;
   font-family: var(--font-inter);
 }
+
 main {
   // background: radial-gradient(
   //     80.05% 80.05% at 80.59% 107.94%,
