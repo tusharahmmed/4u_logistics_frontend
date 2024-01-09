@@ -15,11 +15,10 @@ type SelectFieldProps = {
   placeholder?: string;
   label?: string;
   defaultValue?: SelectOptions;
-  handleChange?: (el: string) => void;
   required?: boolean;
 };
 
-const FormSelectField = ({
+const FormMultiSelectField = ({
   name,
   size = "large",
   value,
@@ -27,7 +26,6 @@ const FormSelectField = ({
   options,
   label,
   defaultValue,
-  handleChange,
   required,
 }: SelectFieldProps) => {
   const {
@@ -58,7 +56,7 @@ const FormSelectField = ({
         name={name}
         render={({field: {value, onChange}}) => (
           <Select
-            onChange={handleChange ? handleChange : onChange}
+            onChange={onChange}
             size={size}
             options={options}
             value={value}
@@ -69,6 +67,8 @@ const FormSelectField = ({
                 : {width: "100%"}
             }
             placeholder={placeholder}
+            allowClear
+            mode="multiple"
           />
         )}
       />
@@ -76,4 +76,4 @@ const FormSelectField = ({
   );
 };
 
-export default FormSelectField;
+export default FormMultiSelectField;

@@ -99,7 +99,7 @@ const UserListPage = () => {
         }
         return record.permissions?.map((item, i) => (
           <span key={i} className="font-medium uppercase">
-            {item}
+            {`${item} `}
           </span>
         ));
       },
@@ -129,11 +129,11 @@ const UserListPage = () => {
 
         return (
           <>
-            <Link href={`/super_admin/user/details/${data}`}>
+            {/* <Link href={`/super_admin/user/details/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
-            </Link>
+            </Link> */}
             <Link href={`/super_admin/user/edit/${data}`}>
               <Button
                 style={{

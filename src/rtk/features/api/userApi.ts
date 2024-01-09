@@ -5,6 +5,14 @@ import {tagTypes} from "@/rtk/tag-types";
 const USER_URL = "/users";
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createUser: builder.mutation({
+      query: (payload) => ({
+        url: `${USER_URL}`,
+        method: "POST",
+        data: payload,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
     getAllUser: builder.query({
       query: (arg: Record<string, any>) => ({
         url: `${USER_URL}`,
@@ -45,6 +53,7 @@ export const userApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useCreateUserMutation,
   useGetAllUserQuery,
   useGetUserDetailsQuery,
   useDeleteUserMutation,
