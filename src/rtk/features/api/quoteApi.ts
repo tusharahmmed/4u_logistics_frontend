@@ -6,6 +6,14 @@ const QUOTE_URL = "/quotes";
 
 export const quoteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createQuote: builder.mutation({
+      query: (payload) => ({
+        url: `${QUOTE_URL}`,
+        method: "POST",
+        data: payload,
+      }),
+      invalidatesTags: [tagTypes.quote],
+    }),
     getQuotes: builder.query({
       query: (arg: Record<string, any>) => ({
         url: `${QUOTE_URL}`,
@@ -46,6 +54,7 @@ export const quoteApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useCreateQuoteMutation,
   useGetQuotesQuery,
   useGetQuoteDetailsQuery,
   useDeleteQuoteMutation,

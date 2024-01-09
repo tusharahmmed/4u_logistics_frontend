@@ -6,21 +6,25 @@ import FormTextArea from "../form/FormTextArea";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {driverRequestSchema} from "@/schemas/driver_request";
 import {quoteRequestSchema} from "@/schemas/quote_request";
+import {useCreateQuoteMutation} from "@/rtk/features/api/quoteApi";
+import {message} from "antd";
 
 const QuoteRequest = () => {
+  const [createQuote, {isLoading}] = useCreateQuoteMutation();
+
   const onSubmit = async (data: any) => {
     console.log(data);
 
-    // message.loading("Creating.....");
-    // try {
-    //   const res = addAcademicSemester(data);
-    //   if (!!res) {
-    //     message.success("Academic Semester Created successfully");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    //   message.error(err.message);
-    // }
+    message.loading("Submitting.....");
+    try {
+      const res = await createQuote(data).unwrap();
+      if (res?.id) {
+        message.success("Quotation submitted successfully");
+      }
+    } catch (err: any) {
+      // console.error(err.message);
+      message.error(err.message);
+    }
   };
 
   return (
@@ -30,7 +34,7 @@ const QuoteRequest = () => {
           <FormInput name="name" label="Name" placeholder="Ruslana Polonska" />
         </div>
         <div className={styles.inputWraper}>
-          <FormInput name="surname" label="Surname" />
+          <FormInput name="serName" label="Surname" />
         </div>
         <div className={styles.inputWraper}>
           <FormInput name="phone" label="Phone" />
@@ -45,7 +49,7 @@ const QuoteRequest = () => {
           <FormInput name="deliveryZip" label="Delivery zip" />
         </div>
         <div className={styles.inputWraper}>
-          <FormInput name="totalPieces" label="Total pieces" />
+          <FormInput name="totalPices" label="Total pieces" />
         </div>
         <div className={styles.inputWraper}>
           <FormInput name="totalWeight" label="Total Weight, Ib" />
@@ -59,7 +63,9 @@ const QuoteRequest = () => {
           />
         </div>
         <div className={styles.submit}>
-          <button type="submit">Sent</button>
+          <button disabled={isLoading} type="submit">
+            Sent
+          </button>
         </div>
       </Form>
     </>
