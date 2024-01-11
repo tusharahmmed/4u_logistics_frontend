@@ -3,8 +3,11 @@ import styles from "@/styles/ui/navbar.module.scss";
 import Image from "next/image";
 import logo from "@/assets/images/logo.svg";
 import Link from "next/link";
+import {isLoggedIn} from "@/services/auth.service";
 
 const Navbar = () => {
+  const hasUser = isLoggedIn();
+
   return (
     <header className={`${styles.header} section_padding`}>
       <div className="logo">
@@ -36,14 +39,23 @@ const Navbar = () => {
           <li>
             <Link href="request-a-quote">Request a quote</Link>
           </li>
+          <li>
+            <Link href="request-a-quote">Contact-us</Link>
+          </li>
           {/* <li>
             <a href="">News</a>
           </li> */}
         </ul>
         <div className={styles.action}>
-          <Link href="contact-us">
-            <button>Contact Us</button>
-          </Link>
+          {hasUser ? (
+            <Link href="profile">
+              <button>Dashboard</button>
+            </Link>
+          ) : (
+            <Link href="login">
+              <button>Login</button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

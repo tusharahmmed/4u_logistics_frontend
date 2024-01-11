@@ -62,3 +62,15 @@ export type IQuote = {
   createdAt: string;
   updatedAt: string;
 };
+export type IDriverRequest = {
+  id: string;
+  name: string;
+  serName: string;
+  phone: string;
+  email: string;
+  truckType: string;
+  truckDescription: string;
+  status: STATUS;
+  createdAt: string;
+  updatedAt: string;
+};

@@ -22,10 +22,14 @@ import {
 import Image from "next/image";
 import {IUser} from "@/types";
 import {USER_ROLE} from "@/constants/role";
+import {
+  useDeleteDriverRequestMutation,
+  useGetDriverRequestsQuery,
+} from "@/rtk/features/api/driverApi";
 
 const UserListPage = () => {
   const query: Record<string, any> = {};
-  const [deleteUser] = useDeleteUserMutation();
+  const [deleteDriverRequest] = useDeleteDriverRequestMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
@@ -33,7 +37,7 @@ const UserListPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("");
+  const [requestId, setRequestId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
@@ -48,20 +52,12 @@ const UserListPage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const {data, isLoading} = useGetAllUserQuery({...query});
+  const {data, isLoading} = useGetDriverRequestsQuery({...query});
 
-  const users = data?.users;
+  const driverRequests = data?.driverRequests;
   const meta = data?.meta;
 
   const columns = [
-    // {
-    //   title: "Image",
-    //   dataIndex: "profileImage",
-    //   key: "image",
-    //   render: function (data: string) {
-    //     return <Image src={data} alt="profile" height={60} width={60} />;
-    //   },
-    // },
     {
       title: "Name",
       render: function (data: Record<string, string>) {
@@ -77,9 +73,14 @@ const UserListPage = () => {
       title: "Phone",
       dataIndex: "phone",
     },
+
     {
-      title: "Role",
-      dataIndex: "role",
+      title: "Truck Type",
+      dataIndex: "truckType",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
       render: (data: string) => {
         return (
           <div
@@ -88,20 +89,6 @@ const UserListPage = () => {
             {data}
           </div>
         );
-      },
-    },
-    {
-      title: "Permissions",
-      // dataIndex: "permissions",
-      render: (record: IUser) => {
-        if (record.role === USER_ROLE.SUPER_ADMIN) {
-          return <span className="font-medium uppercase">ALL</span>;
-        }
-        return record.permissions?.map((item, i) => (
-          <span key={i} className="font-medium uppercase">
-            {`${item} `}
-          </span>
-        ));
       },
     },
     {
@@ -123,8 +110,8 @@ const UserListPage = () => {
 
     {
       title: "Action",
-      // dataIndex: "id",
-      render: function (record: any) {
+      dataIndex: "id",
+      render: function (data: any) {
         // console.log(data);
 
         return (
@@ -134,26 +121,21 @@ const UserListPage = () => {
                 <EyeOutlined />
               </Button>
             </Link> */}
-            <Link href={`/super_admin/user/edit/${record.id}`}>
-              {record.email == "super@gmail.com" ||
-              record.email == "dummy@gmail.com" ? (
-                ""
-              ) : (
-                <Button
-                  style={{
-                    margin: "5px 5px",
-                  }}
-                  onClick={() => {}}
-                  type="primary">
-                  <EditOutlined />
-                </Button>
-              )}
+            <Link href={`/super_admin/drivers/edit/${data}`}>
+              <Button
+                style={{
+                  margin: "5px 5px",
+                }}
+                onClick={() => {}}
+                type="primary">
+                <EditOutlined />
+              </Button>
             </Link>
             <Button
               type="primary"
               onClick={() => {
                 setOpen(true);
-                setUserId(record.id);
+                setRequestId(data);
               }}
               danger
               style={{marginLeft: "3px"}}>
@@ -182,11 +164,11 @@ const UserListPage = () => {
     setSearchTerm("");
   };
 
-  const deleteUserHandler = async (id: string) => {
+  const deleteRequestHandler = async (id: string) => {
     try {
-      const res = await deleteUser(id).unwrap();
+      const res = await deleteDriverRequest(id).unwrap();
       if (res) {
-        message.success("User Successfully Deleted!");
+        message.success("Request Successfully Deleted!");
         setOpen(false);
       }
     } catch (error: any) {
@@ -206,7 +188,7 @@ const UserListPage = () => {
           },
         ]}
       />
-      <ActionBar title="User List">
+      <ActionBar title="Driver Request List">
         <Input
           size="large"
           placeholder="Search"
@@ -217,9 +199,6 @@ const UserListPage = () => {
           value={searchTerm}
         />
         <div>
-          <Link href="/super_admin/user/create">
-            <Button type="primary">Create User</Button>
-          </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               style={{margin: "0px 5px"}}
@@ -234,7 +213,7 @@ const UserListPage = () => {
       <FTable
         loading={isLoading}
         columns={columns}
-        dataSource={users}
+        dataSource={driverRequests}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -242,14 +221,21 @@ const UserListPage = () => {
         onTableChange={onTableChange}
         showPagination={true}
         rowKey="id"
+        expandable={{
+          expandedRowRender: (record: any) => (
+            <p style={{margin: 0}}>{record.truckDescription}</p>
+          ),
+          rowExpandable: (record: any) =>
+            record.truckDescription !== "Not Expandable",
+        }}
       />
 
       <FModal
         title="Remove quote"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteUserHandler(userId)}>
-        <p className="my-5">Do you want to remove this quote?</p>
+        handleOk={() => deleteRequestHandler(requestId)}>
+        <p className="my-5">Do you want to remove this request?</p>
       </FModal>
     </div>
   );

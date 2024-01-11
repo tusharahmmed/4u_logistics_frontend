@@ -99,6 +99,11 @@ export const sidebarItems = (role: string) => {
       ],
     },
     {
+      label: <Link href={`/${role}/drivers`}>Manage Driver Request</Link>,
+      icon: <TableOutlined />,
+      key: `/${role}/drivers`,
+    },
+    {
       label: <Link href={`/${role}/user`}>Manage User</Link>,
       icon: <TableOutlined />,
       key: `/${role}/user`,

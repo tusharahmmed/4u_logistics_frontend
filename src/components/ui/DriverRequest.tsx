@@ -5,21 +5,25 @@ import styles from "@/styles/ui/driver_request.module.scss";
 import FormTextArea from "../form/FormTextArea";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {driverRequestSchema} from "@/schemas/driver_request";
+import {useCreateDriverRequestMutation} from "@/rtk/features/api/driverApi";
+import {message} from "antd";
 
 const DriverRequest = () => {
+  const [createDriverRequest, {isLoading}] = useCreateDriverRequestMutation();
+
   const onSubmit = async (data: any) => {
     console.log(data);
 
-    // message.loading("Creating.....");
-    // try {
-    //   const res = addAcademicSemester(data);
-    //   if (!!res) {
-    //     message.success("Academic Semester Created successfully");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    //   message.error(err.message);
-    // }
+    message.loading("Submitting.....");
+    try {
+      const res = await createDriverRequest(data).unwrap();
+      if (res.id) {
+        message.success("Application submited successfully");
+      }
+    } catch (err: any) {
+      // console.error(err.message);
+      message.error(err.message);
+    }
   };
 
   return (
@@ -32,7 +36,7 @@ const DriverRequest = () => {
           <FormInput name="name" label="Name" placeholder="Ruslana Polonska" />
         </div>
         <div className={styles.inputWraper}>
-          <FormInput name="surname" label="Surname" />
+          <FormInput name="serName" label="Surname" />
         </div>
         <div className={styles.inputWraper}>
           <FormInput name="phone" label="Phone" />
@@ -52,7 +56,9 @@ const DriverRequest = () => {
           />
         </div>
         <div className={styles.submit}>
-          <button type="submit">Sent</button>
+          <button disabled={isLoading} type="submit">
+            Sent
+          </button>
         </div>
       </Form>
     </>
