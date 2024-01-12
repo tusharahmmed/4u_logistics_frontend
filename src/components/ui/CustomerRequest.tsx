@@ -5,21 +5,26 @@ import styles from "@/styles/ui/customer_request.module.scss";
 import FormTextArea from "../form/FormTextArea";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {customerRequestSchema} from "@/schemas/customer_request";
+import {useCreateCustomerRequestMutation} from "@/rtk/features/api/customerApi";
+import {message} from "antd";
 
 const CustomerRequest = () => {
+  const [createCustomerRequest, {isLoading}] =
+    useCreateCustomerRequestMutation();
+
   const onSubmit = async (data: any) => {
     console.log(data);
 
-    // message.loading("Creating.....");
-    // try {
-    //   const res = addAcademicSemester(data);
-    //   if (!!res) {
-    //     message.success("Academic Semester Created successfully");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    //   message.error(err.message);
-    // }
+    message.loading("Submitting.....");
+    try {
+      const res = await createCustomerRequest(data).unwrap();
+      if (res?.id) {
+        message.success("Request submitted successfully");
+      }
+    } catch (err: any) {
+      // console.error(err.message);
+      message.error(err.message);
+    }
   };
 
   return (
@@ -32,7 +37,7 @@ const CustomerRequest = () => {
           <FormInput name="name" label="Name" placeholder="Ruslana Polonska" />
         </div>
         <div className={styles.inputWraper}>
-          <FormInput name="surname" label="Surname" />
+          <FormInput name="serName" label="Surname" />
         </div>
         <div className={styles.inputWraper}>
           <FormInput name="phone" label="Phone" />
@@ -52,7 +57,9 @@ const CustomerRequest = () => {
           />
         </div>
         <div className={styles.submit}>
-          <button type="submit">Sent</button>
+          <button disabled={isLoading} type="submit">
+            Sent
+          </button>
         </div>
       </Form>
     </>

@@ -74,3 +74,15 @@ export type IDriverRequest = {
   createdAt: string;
   updatedAt: string;
 };
+export type ICustomerRequest = {
+  id: string;
+  name: string;
+  serName: string;
+  phone: string;
+  email: string;
+  mcNumber: string;
+  loadDescription: string;
+  status: STATUS;
+  createdAt: string;
+  updatedAt: string;
+};

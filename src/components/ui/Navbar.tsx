@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "@/styles/ui/navbar.module.scss";
 import Image from "next/image";
 import logo from "@/assets/images/logo.svg";
@@ -6,7 +6,12 @@ import Link from "next/link";
 import {isLoggedIn} from "@/services/auth.service";
 
 const Navbar = () => {
-  const hasUser = isLoggedIn();
+  const [hasUser, setHasUser] = useState(false);
+
+  useEffect(() => {
+    const isUserLoggedIn = isLoggedIn();
+    setHasUser(isUserLoggedIn);
+  }, [hasUser]);
 
   return (
     <header className={`${styles.header} section_padding`}>
@@ -40,7 +45,7 @@ const Navbar = () => {
             <Link href="request-a-quote">Request a quote</Link>
           </li>
           <li>
-            <Link href="request-a-quote">Contact-us</Link>
+            <Link href="contact-us">Contact-us</Link>
           </li>
           {/* <li>
             <a href="">News</a>
