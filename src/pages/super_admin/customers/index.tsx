@@ -8,9 +8,7 @@ import {useState} from "react";
 import {
   DeleteOutlined,
   EditOutlined,
-  FilterOutlined,
   ReloadOutlined,
-  EyeOutlined,
 } from "@ant-design/icons";
 import {useDebounced} from "@/rtk/hooks";
 import FModal from "@/components/ui/FModal";

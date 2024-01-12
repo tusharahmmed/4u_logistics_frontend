@@ -9,7 +9,7 @@ import {
   useGetUserDetailsQuery,
   useUpdateUserMutation,
 } from "@/rtk/features/api/userApi";
-import {createUserRequestSchema, updateUserRequestSchema} from "@/schemas/user";
+import {updateUserRequestSchema} from "@/schemas/user";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Button, Col, Row, message} from "antd";
 import {useRouter} from "next/router";

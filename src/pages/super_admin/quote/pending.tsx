@@ -5,13 +5,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import {Button, Input, message} from "antd";
 import Link from "next/link";
 import {useState} from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  FilterOutlined,
-  ReloadOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ReloadOutlined} from "@ant-design/icons";
 import {useDebounced} from "@/rtk/hooks";
 import FModal from "@/components/ui/FModal";
 import dayjs from "dayjs";
@@ -52,12 +46,6 @@ const PendingQuotePage = () => {
   const meta = data?.meta;
 
   const columns = [
-    // {
-    //   title: "Id",
-    //   dataIndex: "id",
-    //   sorter: true,
-    //   key: "id",
-    // },
     {
       title: "Name",
       // dataIndex: "name",
@@ -122,7 +110,7 @@ const PendingQuotePage = () => {
         // console.log(data);
         return (
           <>
-            {/* <Link href={`/super_admin/admin/details/${data}`}>
+            {/* <Link href={`/super_admin/quote/details/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
@@ -205,9 +193,6 @@ const PendingQuotePage = () => {
           }}
         />
         <div>
-          {/* <Link href="/super_admin/admin/create">
-            <Button type="primary">Create Admin</Button>
-          </Link> */}
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               style={{margin: "0px 5px"}}

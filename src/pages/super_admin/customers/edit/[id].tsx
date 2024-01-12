@@ -11,10 +11,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {quoteStatusSchema} from "@/schemas/quote_status";
 import dayjs from "dayjs";
 import {
-  useGetDriverRequestDetailsQuery,
-  useUpdateDriverRequestMutation,
-} from "@/rtk/features/api/driverApi";
-import {
   useGetCustomerRequestDetailsQuery,
   useUpdateCustomerRequestMutation,
 } from "@/rtk/features/api/customerApi";

@@ -5,23 +5,10 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import {Button, Input, message} from "antd";
 import Link from "next/link";
 import {useState} from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  FilterOutlined,
-  ReloadOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ReloadOutlined} from "@ant-design/icons";
 import {useDebounced} from "@/rtk/hooks";
 import FModal from "@/components/ui/FModal";
 import dayjs from "dayjs";
-import {
-  useDeleteUserMutation,
-  useGetAllUserQuery,
-} from "@/rtk/features/api/userApi";
-import Image from "next/image";
-import {IUser} from "@/types";
-import {USER_ROLE} from "@/constants/role";
 import {
   useDeleteDriverRequestMutation,
   useGetDriverRequestsQuery,
@@ -116,11 +103,6 @@ const UserListPage = () => {
 
         return (
           <>
-            {/* <Link href={`/super_admin/user/details/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
-                <EyeOutlined />
-              </Button>
-            </Link> */}
             <Link href={`/super_admin/drivers/edit/${data}`}>
               <Button
                 style={{
