@@ -5,10 +5,12 @@ import logo from "@/assets/images/logo.svg";
 import Link from "next/link";
 import {isLoggedIn} from "@/services/auth.service";
 import {Drawer, Space, Button} from "antd";
+import {useRouter} from "next/router";
 
 const Navbar = () => {
   const [hasUser, setHasUser] = useState(false);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const isUserLoggedIn = isLoggedIn();
@@ -38,19 +40,37 @@ const Navbar = () => {
             <button onClick={() => setOpen(true)}>Menu</button>
             <ul>
               <li>
-                <Link href="work-with-us">About us</Link>
+                <Link
+                  className={router.pathname == "/work-with-us" ? "active" : ""}
+                  href="work-with-us">
+                  About us
+                </Link>
               </li>
               <li>
-                <Link href="for-drivers">For drivers</Link>
+                <Link
+                  className={router.pathname == "/for-drivers" ? "active" : ""}
+                  href="for-drivers">
+                  For drivers
+                </Link>
               </li>
               {/* <li>
             <a href="">Fleet</a>
           </li> */}
               <li>
-                <Link href="request-a-quote">Request a quote</Link>
+                <Link
+                  className={
+                    router.pathname == "/request-a-quote" ? "active" : ""
+                  }
+                  href="request-a-quote">
+                  Request a quote
+                </Link>
               </li>
               <li>
-                <Link href="contact-us">Contact-us</Link>
+                <Link
+                  className={router.pathname == "/contact-us" ? "active" : ""}
+                  href="contact-us">
+                  Contact-us
+                </Link>
               </li>
             </ul>
             <div className={styles.action}>
@@ -68,8 +88,6 @@ const Navbar = () => {
         </div>
       </header>
       <Drawer
-        // title="Drawer with extra actions"
-
         classNames={{
           mask: styles.drawerMask,
           content: styles.drawerContent,
@@ -92,30 +110,44 @@ const Navbar = () => {
         <Space>
           <ul>
             <li>
-              <Link onClick={() => setOpen(false)} href="/">
+              <Link
+                className={router.pathname == "/" ? "active" : ""}
+                onClick={() => setOpen(false)}
+                href="/">
                 Home
               </Link>
             </li>
             <li>
-              <Link onClick={() => setOpen(false)} href="work-with-us">
+              <Link
+                className={router.pathname == "/work-with-us" ? "active" : ""}
+                onClick={() => setOpen(false)}
+                href="work-with-us">
                 About us
               </Link>
             </li>
             <li>
-              <Link onClick={() => setOpen(false)} href="for-drivers">
+              <Link
+                className={router.pathname == "/for-drivers" ? "active" : ""}
+                onClick={() => setOpen(false)}
+                href="for-drivers">
                 For drivers
               </Link>
             </li>
-            {/* <li>
-            <a href="">Fleet</a>
-          </li> */}
             <li>
-              <Link onClick={() => setOpen(false)} href="request-a-quote">
+              <Link
+                className={
+                  router.pathname == "/request-a-quote" ? "active" : ""
+                }
+                onClick={() => setOpen(false)}
+                href="request-a-quote">
                 Request a quote
               </Link>
             </li>
             <li>
-              <Link onClick={() => setOpen(false)} href="contact-us">
+              <Link
+                className={router.pathname == "/contact-us" ? "active" : ""}
+                onClick={() => setOpen(false)}
+                href="contact-us">
                 Contact-us
               </Link>
             </li>

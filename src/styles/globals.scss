@@ -95,3 +95,7 @@ main {
     padding-right: 2rem;
   }
 }
+
+ul > li > a.active {
+  color: #dd463e !important;
+}
