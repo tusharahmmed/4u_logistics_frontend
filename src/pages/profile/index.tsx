@@ -4,7 +4,10 @@ import React from "react";
 const Profile = () => {
   return (
     <div>
-      <h2>Profile</h2>
+      <h2 className="text-lg font-medium">Profile</h2>
+      <div className="mt-2 border-1 border-gray-200">
+        Profile Module is Cooking!
+      </div>
     </div>
   );
 };

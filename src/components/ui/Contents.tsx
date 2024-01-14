@@ -10,6 +10,7 @@ const Contents = ({children}: {children: React.ReactNode}) => {
         minHeight: "100vh",
         color: "black",
         background: "#eee",
+        marginTop: "0px",
       }}>
       <DashboardHeader />
 

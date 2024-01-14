@@ -31,6 +31,11 @@ const Login = () => {
     }
   };
 
+  const defaultValues = {
+    email: "super@gmail.com",
+    password: "123456",
+  };
+
   return (
     <section className={`${styles.section} section_padding`}>
       <div className={styles.sectionTitle}>
@@ -39,7 +44,8 @@ const Login = () => {
       <div className={styles.formWraper}>
         <Form
           submitHandler={onSubmit}
-          resolver={yupResolver(loginRequestSchema)}>
+          resolver={yupResolver(loginRequestSchema)}
+          defaultValues={defaultValues}>
           <div className={styles.inputWraper}>
             <FormInput type="email" name="email" label="Email" />
           </div>

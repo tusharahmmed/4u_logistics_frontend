@@ -1,4 +1,5 @@
 import styles from "@/styles/home/start_today.module.scss";
+import Link from "next/link";
 
 const StartToday = () => {
   return (
@@ -6,8 +7,12 @@ const StartToday = () => {
       <div className={styles.content}>
         <h2>Start Logistics with 4U Today!</h2>
         <div className={styles.actions}>
-          <button>Request a quote</button>
-          <button>For Driver</button>
+          <Link href="request-a-quote">
+            <button>Request a quote</button>
+          </Link>
+          <Link href="for-drivers">
+            <button>For Driver</button>
+          </Link>
         </div>
       </div>
     </section>

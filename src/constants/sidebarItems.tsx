@@ -30,10 +30,10 @@ export const sidebarItems = (role: string, permissions: string[]) => {
           label: <Link href={`/profile`}>Account Profile</Link>,
           key: `/${role}/profile`,
         },
-        {
-          label: <Link href={`/profile/change-password`}>Change Password</Link>,
-          key: `/profile/change-password`,
-        },
+        // {
+        //   label: <Link href={`/profile/change-password`}>Change Password</Link>,
+        //   key: `/profile/change-password`,
+        // },
       ],
     },
   ];
