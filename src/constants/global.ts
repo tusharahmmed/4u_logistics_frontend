@@ -14,10 +14,6 @@ export const quoteStatusOptions = [
 ];
 export const userRoleOptions = [
   {
-    label: "HR",
-    value: "hr",
-  },
-  {
     label: "Admin",
     value: "admin",
   },
@@ -36,3 +32,9 @@ export const userPermissionOptions = [
     value: "customers",
   },
 ];
+
+export enum USER_ROLE_PERMISSION {
+  QUOTES = "quotes",
+  DRIVERS = "drivers",
+  CUSTOMERS = "customers",
+}

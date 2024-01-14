@@ -14,7 +14,7 @@ import {
   useGetQuotesQuery,
 } from "@/rtk/features/api/quoteApi";
 
-const CancledQuotePage = () => {
+const PendingQuotePage = () => {
   const query: Record<string, any> = {};
   const [deleteQuote] = useDeleteQuoteMutation();
 
@@ -30,7 +30,7 @@ const CancledQuotePage = () => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  query["status"] = "canceled";
+  query["status"] = "pending";
 
   const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
@@ -110,12 +110,12 @@ const CancledQuotePage = () => {
         // console.log(data);
         return (
           <>
-            {/* <Link href={`/super_admin/admin/details/${data}`}>
+            {/* <Link href={`/super_admin/quote/details/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
             </Link> */}
-            <Link href={`/super_admin/quote/edit/${data}`}>
+            <Link href={`/admin/quote/edit/${data}`}>
               <Button
                 style={{
                   margin: "5px 5px",
@@ -166,10 +166,10 @@ const CancledQuotePage = () => {
         message.success("Quote Successfully Deleted!");
         setOpen(false);
       }
-    } catch (error: any) {
+    } catch (err: any) {
       setOpen(false);
-      // console.log(error);
-      message.error(error.message);
+      console.log(err);
+      message.error(err.message);
     }
   };
 
@@ -178,12 +178,12 @@ const CancledQuotePage = () => {
       <FBreadCrumb
         items={[
           {
-            label: "super_admin",
+            label: "admin",
             link: "/profile",
           },
         ]}
       />
-      <ActionBar title="Cancle Quote List">
+      <ActionBar title="Pending Quote List">
         <Input
           size="large"
           placeholder="Search"
@@ -234,8 +234,8 @@ const CancledQuotePage = () => {
   );
 };
 
-export default CancledQuotePage;
+export default PendingQuotePage;
 
-CancledQuotePage.getLayout = function getLayout(page: React.ReactElement) {
+PendingQuotePage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

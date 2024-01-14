@@ -1,4 +1,5 @@
 import {authKey} from "@/constants/storageKey";
+import {getNewAccessToken} from "@/services/auth.service";
 
 import {IGenericErrorResponse, ResponseSuccessType} from "@/types";
 import {getFromLocalStorage, setToLocalStorage} from "@/utils/local-storage";
@@ -36,7 +37,18 @@ instance.interceptors.response.use(
     return responseObject;
   },
   async function (error) {
-    if (error?.response?.status === 401) {
+    const config = error?.config;
+
+    if (error?.response?.status === 401 && !config.sent) {
+      config.sent = true;
+      // get new token
+      const response = await getNewAccessToken();
+      const newAcccessToken = response?.data?.accessToken;
+      // set new token
+      config.headers.Authorization = newAcccessToken;
+      setToLocalStorage(authKey, newAcccessToken);
+
+      return instance(config);
     } else {
       const responseObject: IGenericErrorResponse = {
         statusCode: error?.response?.data?.statusCode || 500,

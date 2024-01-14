@@ -179,7 +179,7 @@ const PendingQuotePage = () => {
         items={[
           {
             label: "super_admin",
-            link: "/super_admin",
+            link: "/profile",
           },
         ]}
       />

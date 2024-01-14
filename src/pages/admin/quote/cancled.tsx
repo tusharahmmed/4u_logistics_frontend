@@ -115,7 +115,7 @@ const CancledQuotePage = () => {
                 <EyeOutlined />
               </Button>
             </Link> */}
-            <Link href={`/super_admin/quote/edit/${data}`}>
+            <Link href={`/admin/quote/edit/${data}`}>
               <Button
                 style={{
                   margin: "5px 5px",
@@ -178,7 +178,7 @@ const CancledQuotePage = () => {
       <FBreadCrumb
         items={[
           {
-            label: "super_admin",
+            label: "admin",
             link: "/profile",
           },
         ]}

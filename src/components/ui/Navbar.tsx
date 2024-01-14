@@ -38,9 +38,9 @@ const Navbar = () => {
           <li>
             <Link href="for-drivers">For drivers</Link>
           </li>
-          <li>
+          {/* <li>
             <a href="">Fleet</a>
-          </li>
+          </li> */}
           <li>
             <Link href="request-a-quote">Request a quote</Link>
           </li>

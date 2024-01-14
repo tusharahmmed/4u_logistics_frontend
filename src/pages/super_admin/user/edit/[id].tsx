@@ -41,7 +41,7 @@ const EditUserPage = () => {
         items={[
           {
             label: "super_admin",
-            link: "/super_admin",
+            link: "/profile",
           },
           {
             label: "user",

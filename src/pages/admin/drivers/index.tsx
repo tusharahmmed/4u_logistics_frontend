@@ -10,13 +10,13 @@ import {useDebounced} from "@/rtk/hooks";
 import FModal from "@/components/ui/FModal";
 import dayjs from "dayjs";
 import {
-  useDeleteQuoteMutation,
-  useGetQuotesQuery,
-} from "@/rtk/features/api/quoteApi";
+  useDeleteDriverRequestMutation,
+  useGetDriverRequestsQuery,
+} from "@/rtk/features/api/driverApi";
 
-const CancledQuotePage = () => {
+const UserListPage = () => {
   const query: Record<string, any> = {};
-  const [deleteQuote] = useDeleteQuoteMutation();
+  const [deleteDriverRequest] = useDeleteDriverRequestMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
@@ -24,13 +24,12 @@ const CancledQuotePage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [adminId, setAdminId] = useState<string>("");
+  const [requestId, setRequestId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  query["status"] = "canceled";
 
   const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
@@ -40,16 +39,14 @@ const CancledQuotePage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const {data, isLoading} = useGetQuotesQuery({...query});
-  // console.log(data);
-  const quotes = data?.quotes;
+  const {data, isLoading} = useGetDriverRequestsQuery({...query});
+
+  const driverRequests = data?.driverRequests;
   const meta = data?.meta;
 
   const columns = [
     {
       title: "Name",
-      // dataIndex: "name",
-
       render: function (data: Record<string, string>) {
         const fullName = `${data?.name} ${data?.serName} `;
         return <>{fullName}</>;
@@ -63,32 +60,10 @@ const CancledQuotePage = () => {
       title: "Phone",
       dataIndex: "phone",
     },
+
     {
-      title: "PickupZip",
-      dataIndex: "pickupZip",
-    },
-    {
-      title: "DeliveryZip",
-      dataIndex: "deliveryZip",
-    },
-    {
-      title: "Pices",
-      dataIndex: "totalPices",
-    },
-    {
-      title: "Weight",
-      dataIndex: "totalWeight",
-      render: function (data: number) {
-        return `${data} lb`;
-      },
-    },
-    {
-      title: "Created at",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
-      sorter: true,
+      title: "Truck Type",
+      dataIndex: "truckType",
     },
     {
       title: "Status",
@@ -104,18 +79,31 @@ const CancledQuotePage = () => {
       },
     },
     {
+      title: "Created at",
+      dataIndex: "createdAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+    {
+      title: "Updated at",
+      dataIndex: "updatedAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
+    },
+
+    {
       title: "Action",
       dataIndex: "id",
       render: function (data: any) {
         // console.log(data);
+
         return (
           <>
-            {/* <Link href={`/super_admin/admin/details/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
-                <EyeOutlined />
-              </Button>
-            </Link> */}
-            <Link href={`/super_admin/quote/edit/${data}`}>
+            <Link href={`/admin/drivers/edit/${data}`}>
               <Button
                 style={{
                   margin: "5px 5px",
@@ -129,7 +117,7 @@ const CancledQuotePage = () => {
               type="primary"
               onClick={() => {
                 setOpen(true);
-                setAdminId(data);
+                setRequestId(data);
               }}
               danger
               style={{marginLeft: "3px"}}>
@@ -158,12 +146,11 @@ const CancledQuotePage = () => {
     setSearchTerm("");
   };
 
-  const deleteAdminHandler = async (id: string) => {
-    // console.log(id);
+  const deleteRequestHandler = async (id: string) => {
     try {
-      const res = await deleteQuote(id).unwrap();
+      const res = await deleteDriverRequest(id).unwrap();
       if (res) {
-        message.success("Quote Successfully Deleted!");
+        message.success("Request Successfully Deleted!");
         setOpen(false);
       }
     } catch (error: any) {
@@ -178,12 +165,12 @@ const CancledQuotePage = () => {
       <FBreadCrumb
         items={[
           {
-            label: "super_admin",
+            label: "admin",
             link: "/profile",
           },
         ]}
       />
-      <ActionBar title="Cancle Quote List">
+      <ActionBar title="Driver Request List">
         <Input
           size="large"
           placeholder="Search"
@@ -191,6 +178,7 @@ const CancledQuotePage = () => {
           style={{
             width: "20%",
           }}
+          value={searchTerm}
         />
         <div>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
@@ -207,7 +195,7 @@ const CancledQuotePage = () => {
       <FTable
         loading={isLoading}
         columns={columns}
-        dataSource={quotes}
+        dataSource={driverRequests}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -217,9 +205,10 @@ const CancledQuotePage = () => {
         rowKey="id"
         expandable={{
           expandedRowRender: (record: any) => (
-            <p style={{margin: 0}}>{record.question}</p>
+            <p style={{margin: 0}}>{record.truckDescription}</p>
           ),
-          rowExpandable: (record: any) => record.question !== "Not Expandable",
+          rowExpandable: (record: any) =>
+            record.truckDescription !== "Not Expandable",
         }}
       />
 
@@ -227,15 +216,15 @@ const CancledQuotePage = () => {
         title="Remove quote"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteAdminHandler(adminId)}>
-        <p className="my-5">Do you want to remove this quote?</p>
+        handleOk={() => deleteRequestHandler(requestId)}>
+        <p className="my-5">Do you want to remove this request?</p>
       </FModal>
     </div>
   );
 };
 
-export default CancledQuotePage;
+export default UserListPage;
 
-CancledQuotePage.getLayout = function getLayout(page: React.ReactElement) {
+UserListPage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

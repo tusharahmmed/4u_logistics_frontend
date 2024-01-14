@@ -18,14 +18,16 @@ const DashboardHeader = () => {
     {
       key: "0",
       label: (
-        <Button onClick={logOut} type="text" danger>
+        <button
+          onClick={logOut}
+          className="bg-[#ff7875] text-[#fff2f0] px-4 py-1.5 rounded-md border-0 hover:bg-[#ff4d4f]">
           Logout
-        </Button>
+        </button>
       ),
     },
   ];
   const {role} = getUserInfo() as any;
-  // const role = USER_ROLE.SUPER_ADMIN;
+
   return (
     <AntHeader
       style={{
